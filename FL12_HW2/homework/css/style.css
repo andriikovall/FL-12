@@ -1,0 +1,58 @@
+.tm-nav-item:hover {
+    background-color: lightskyblue;
+}
+
+.tm-nav-item-link:hover {
+    color: #fff;
+}
+
+.tm-banner {
+    background: linear-gradient(0.25turn, lightskyblue, burlywood);
+}
+
+.tm-banner-inner {
+    background: white;
+}
+
+
+@keyframes banner-text-animation {
+    from {
+        margin-left: 200px;
+    }
+    to {
+        margin-left: 0px;
+    }
+}
+
+.tm-banner-text {
+    text-shadow: 7px 4px 3px #333;
+    animation-name: banner-text-animation;
+    animation-duration: 4s;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+section {
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+}
+
+.flex-2-col {
+    display: flex;
+    flex-direction: row;
+}
+/* 
+.tm-team-img {
+    float: right;
+}
+
+.tm-team-description-container {
+    float: left;
+} */
+
+/* 
+section:before {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 50px 0 0;
+    border-color: #095bb3 transparent transparent transparent; 
+} */
