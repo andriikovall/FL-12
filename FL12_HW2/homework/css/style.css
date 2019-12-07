@@ -154,10 +154,11 @@ a.text::after {
     font-size: 1em;
 }
 
-section::before {
+section:before {
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 50px 50px 0 0;
-    border-color: #095bb3 transparent transparent transparent; 
+    border-color: lightskyblue transparent transparent transparent; 
+    content: '';
 }
