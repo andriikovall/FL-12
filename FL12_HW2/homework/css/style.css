@@ -1,4 +1,5 @@
 .tm-nav-item:hover {
+    transition: 0.2s;
     background-color: lightskyblue;
 }
 
@@ -120,6 +121,11 @@ a.text::after {
     border-right: none;
 }
 
+#contact input:focus {
+    transition: 0.2s;
+    background: lightskyblue;
+}
+
 #contact textarea {
     border-color: lightskyblue;
 }
@@ -147,7 +153,6 @@ a.text::after {
 .boxes p {
     font-size: 1em;
 }
-
 
 section::before {
     width: 0;
