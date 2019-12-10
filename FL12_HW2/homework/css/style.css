@@ -162,3 +162,8 @@ section:before {
     border-color: lightskyblue transparent transparent transparent; 
     content: '';
 }
+
+#contact::after {
+    position: relative;
+    background: url('../img/email-icon.png');
+}
