@@ -1,5 +1,6 @@
 body {
-  font-family: 'Source Sans Pro', sans-serif; }
+  font-family: 'Source Sans Pro', sans-serif;
+  background-color: white; }
 
 .header {
   background-image: url("../img/m-h-day.jpg");
@@ -63,13 +64,29 @@ body {
 
 .section {
   margin: 0;
-  background-color: white; }
+  color: white; }
   .section .section_text {
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 0;
+    padding-top: 0;
     font-size: 40px;
     color: #2e1c1c;
     font-weight: 600; }
+
+.section_card {
+  background-color: #20202a;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+  width: 50%; }
+  .section_card img {
+    width: 30%; }
+  .section_card .section_card_right_container {
+    float: right;
+    width: 70%; }

@@ -3,6 +3,7 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
+    background-color: $sectionColor;
     // max-width: 1980px;
 }
 
@@ -81,6 +82,11 @@ body {
     margin-bottom: $value;
 }
 
+@mixin margin-x($value) {
+    margin-left: $value;
+    margin-right: $value;
+}
+
 .header_button {
     background: $firstMainColour;
     border: none;
@@ -99,13 +105,29 @@ body {
 
 .section {
     margin: 0;
-    background-color: $sectionColor;
+    color: white;
     .section_text {
         text-align: center;
-        @include margin-y(0);
-        @include padding-y(20px);
+        @include margin-y(15px); 
+        @include padding-y(0);
         font-size: 40px;
         color: $headerBackgroundColour;
         font-weight: 600;
+    }
+}
+
+.section_card {
+    background-color: $sectionCardColour;
+    @include padding-x(15px);
+    @include padding-y(15px);
+    @include margin-x(auto);
+    margin-bottom: 30px;
+    width: 50%;
+    img {
+        width: 30%;
+    }
+    .section_card_right_container {
+        float: right; 
+        width: 70%;
     }
 }
