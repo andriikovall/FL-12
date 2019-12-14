@@ -1,8 +1,10 @@
 $headerBackgroundColour: white;
 $headerBG: url('../img/m-h-night.jpg');
-$backgroundSelection: red;
-$firstMainColour: rgb(201, 190, 35);
-$secondMainColour: red;
+$backgroundSelection: rgb(201, 68, 68);
+$firstMainColour: rgb(224, 168, 13);
+$secondMainColour: $backgroundSelection;
 $logoFont: 'Fresca', sans-serif;
+$lightGreyFontColour: lighten(black, 70%);
 $sectionColor: lighten(black, 10%);
 $sectionCardColour: lighten(black, 20%);
+$sectionCardTextFont: 'Hind', sans-serif;

@@ -10,7 +10,7 @@ body {
 .header {
     // background: $headerBG;
     background-image: $headerBG;
-    background-attachment: scroll; 
+    background-attachment: scroll;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -88,13 +88,16 @@ body {
 }
 
 .header_button {
+    cursor: pointer;
     background: $firstMainColour;
     border: none;
     border-radius: 2px;
     @include padding-x(30px);
     @include padding-y(10px);
     color: white;
+    height: 35px;
     @include margin-y(25px);
+    font-weight: bold;
 }
 
 .login {
@@ -106,9 +109,10 @@ body {
 .section {
     margin: 0;
     color: white;
+
     .section_text {
         text-align: center;
-        @include margin-y(15px); 
+        @include margin-y(15px);
         @include padding-y(0);
         font-size: 40px;
         color: $headerBackgroundColour;
@@ -122,12 +126,110 @@ body {
     @include padding-y(15px);
     @include margin-x(auto);
     margin-bottom: 30px;
-    width: 50%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    color: lighten(black, 70%);
+
     img {
-        width: 30%;
+        // display: block;
+        // float: left;
+        flex-grow: 1;
+        height: 100%;
     }
-    .section_card_right_container {
-        float: right; 
-        width: 70%;
+
+    text-align: center;
+
+
+    .section_card_heading {
+        color: lighten(black, 90%);
+        font-weight: bold;
+        font-size: 22px;
+        text-align: center;
+        height: 25%;
+    }
+
+    .section_card_text {
+        vertical-align: middle;
+        text-align: left;
+        line-height: 1.4em;
+        font-family: $sectionCardTextFont;
+        height: 40%;
+    }
+
+    a {
+        @include padding-x(auto);
+        color: $lightGreyFontColour;
+        height: 25%;
+    }
+}
+
+.section_card_right_container {
+    // position: relative;
+    // width: 40%; 
+    // margin-left: auto;
+    // margin-right: 0;
+    // vertical-align: middle;
+    @include padding-x(80px);
+    max-width: 50%;
+    flex-grow: 2;
+}
+
+footer {
+    margin-top: 100px;
+    background: $sectionCardColour;
+    height: 250px;
+}
+
+.footer-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    div {
+        padding-top: 120px;
+        width: 30%;
+        text-align: center;
+        color: $lightGreyFontColour;
+    }
+
+    .footer_logo {
+        @include padding-x(auto);
+        @extend div;
+    }
+
+    .footer_text {
+        text-align: left;
+        @extend div;
+    }
+
+    .footer-cr {
+        @extend div;
+    }
+}
+
+.section_banner {
+    width: 75%;
+    @include margin-x(auto);
+    background: linear-gradient(90deg, $firstMainColour 0%, $secondMainColour 100%);
+    position: relative;
+    top: 140px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .section_banner_text_wrap {
+        .section_banner_heading {
+            font-weight: bold;
+            font-size: 25px;
+        }
+        margin-bottom: 10px;
+    }
+
+    .section_banner_button {
+        @extend .header_button;
+        @include margin-y(auto);
     }
 }

@@ -46,8 +46,9 @@ body {
   width: 35%;
   min-width: 200px; }
 
-.header_button {
-  background: #c9be23;
+.header_button, .section_banner .section_banner_button {
+  cursor: pointer;
+  background: #e0a80d;
   border: none;
   border-radius: 2px;
   padding-right: 30px;
@@ -55,8 +56,10 @@ body {
   padding-bottom: 10px;
   padding-top: 10px;
   color: white;
+  height: 35px;
   margin-top: 25px;
-  margin-bottom: 25px; }
+  margin-bottom: 25px;
+  font-weight: bold; }
 
 .login {
   margin-left: 170px;
@@ -84,9 +87,74 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 30px;
-  width: 50%; }
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  color: #b3b3b3;
+  text-align: center; }
   .section_card img {
-    width: 30%; }
-  .section_card .section_card_right_container {
-    float: right;
-    width: 70%; }
+    flex-grow: 1;
+    height: 100%; }
+  .section_card .section_card_heading {
+    color: #e6e6e6;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+    height: 25%; }
+  .section_card .section_card_text {
+    vertical-align: middle;
+    text-align: left;
+    line-height: 1.4em;
+    font-family: "Hind", sans-serif;
+    height: 40%; }
+  .section_card a {
+    padding-right: auto;
+    padding-left: auto;
+    color: #b3b3b3;
+    height: 25%; }
+
+.section_card_right_container {
+  padding-right: 80px;
+  padding-left: 80px;
+  max-width: 50%;
+  flex-grow: 2; }
+
+footer {
+  margin-top: 100px;
+  background: #333333;
+  height: 250px; }
+
+.footer-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+  .footer-wrap div, .footer-wrap .footer_logo, .footer-wrap .footer_text, .footer-wrap .footer-cr {
+    padding-top: 120px;
+    width: 30%;
+    text-align: center;
+    color: #b3b3b3; }
+  .footer-wrap .footer_logo {
+    padding-right: auto;
+    padding-left: auto; }
+  .footer-wrap .footer_text {
+    text-align: left; }
+
+.section_banner {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(90deg, #e0a80d 0%, #c94444 100%);
+  position: relative;
+  top: 140px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around; }
+  .section_banner .section_banner_text_wrap {
+    margin-bottom: 10px; }
+    .section_banner .section_banner_text_wrap .section_banner_heading {
+      font-weight: bold;
+      font-size: 25px; }
+  .section_banner .section_banner_button {
+    margin-top: auto;
+    margin-bottom: auto; }
