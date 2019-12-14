@@ -1,20 +1,16 @@
 // Write your styles here
 
-
 body {
     font-family: 'Source Sans Pro', sans-serif;
     background-color: $sectionColor;
-    // max-width: 1980px;
 }
 
 .header {
-    // background: $headerBG;
     background-image: $headerBG;
     background-attachment: scroll;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    // background-position: bottom;
     padding-bottom: 120px;
     border-bottom-right-radius: 40%;
 
@@ -25,7 +21,6 @@ body {
 }
 
 .landing-logo {
-    // display: inline;
     font-family: $logoFont;
 
     p {
@@ -46,9 +41,6 @@ body {
 }
 
 .header_heading {
-    // &:nth-of-type(5) { 
-    //     background-color: $backgroundSelection; 
-    // }
     color: $headerBackgroundColour;
     line-height: 50px;
     margin-top: -50px;
@@ -134,8 +126,6 @@ body {
     color: lighten(black, 70%);
 
     img {
-        // display: block;
-        // float: left;
         flex-grow: 1;
         height: 100%;
     }
@@ -167,11 +157,6 @@ body {
 }
 
 .section_card_right_container {
-    // position: relative;
-    // width: 40%; 
-    // margin-left: auto;
-    // margin-right: 0;
-    // vertical-align: middle;
     @include padding-x(80px);
     max-width: 50%;
     flex-grow: 2;
