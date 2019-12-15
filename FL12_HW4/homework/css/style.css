@@ -1,0 +1,108 @@
+html,
+body,
+header {
+    height: 100%;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.py-auto {
+    padding-top: auto;
+    padding-bottom: auto;
+}
+
+.px-auto {
+    padding-left: auto;
+    padding-right: auto;
+}
+
+.site-name {
+    font-family: Andale Mono, monospace;
+    text-transform: uppercase;
+    margin-left: 5%;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: grey;
+}
+
+
+.nav-container {
+    clear: both;
+    width: 70%;
+    height: 70px;
+    /* border: black dotted; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-container nav {
+    margin-right: 5%;
+}
+
+.nav-container .nav-item {
+    color: rgb(118, 137, 138);
+    padding-left: 25px;
+    text-decoration: none;
+}
+
+.home-bg {
+    background-image: url(/img/home-bg.jpg);
+    height: 90%;
+    /* background-attachment: fixed; */
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.overlay {
+    background: linear-gradient(rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.6));
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.main-heading {
+    text-align: center;
+    color: white;
+    font-size: 60px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.small-text {
+    text-align: center;
+    font-family: Andale Mono, monospace;
+    color: #bfba55;
+    padding-top: 2%;
+}
+
+
+.button-wrapper {
+    padding-top: 6%;
+    text-align: center;
+}
+
+.button-wrapper button {
+    color: rgb(112, 102, 102);
+    font-weight: bold;
+    background: rgb(233, 224, 224);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 50px;
+}
+
+
+.overlay .container {
+    position: relative;
+    /* margin-top: 100px; */
+}
