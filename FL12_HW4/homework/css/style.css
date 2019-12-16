@@ -14,16 +14,6 @@ header {
     margin-bottom: auto;
 }
 
-.py-auto {
-    padding-top: auto;
-    padding-bottom: auto;
-}
-
-.px-auto {
-    padding-left: auto;
-    padding-right: auto;
-}
-
 .site-name {
     font-family: Andale Mono, monospace;
     text-transform: uppercase;
@@ -54,9 +44,10 @@ header {
 }
 
 .home-bg {
-    background-image: url(/img/home-bg.jpg);
+    background-image: url('../img/home-bg.jpg');
     height: 90%;
     /* background-attachment: fixed; */
+    /* background-position: 0% 0%; */
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-size: cover;
@@ -90,19 +81,114 @@ header {
     text-align: center;
 }
 
-.button-wrapper button {
-    color: rgb(112, 102, 102);
+.btn {
+    cursor: pointer;
+    background: white;
+    border-radius: 30px;
+    color: grey;
+    font-size: 12px;
     font-weight: bold;
-    background: rgb(233, 224, 224);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 50px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1.7em;
+    padding-right: 1.7em;
+    border-color: rgb(175, 168, 168);
+    border-width: 1px;
+    border-style: solid;
 }
 
 
 .overlay .container {
     position: relative;
     /* margin-top: 100px; */
+}
+
+.divider {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.blogs {
+    margin-top: 50px;
+    width: 60%;
+}
+
+.blog-image {
+    width: 100%;
+}
+
+.blog-title {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.blog-meta {
+    display: flex;
+    flex-direction: row;
+}
+
+.author-image {
+    border-radius: 50%;
+}
+
+.blog-meta span,
+.blog-text {
+    color: grey;
+}
+
+.blog-meta span {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.blog-text {
+    margin-top: 1em;
+    line-height: 1.5em;
+}
+
+.blog-btn {
+    margin-top: 3em;
+}
+
+.btn:hover {
+    background: rgb(207, 207, 207);
+    transition: 0.2s;
+}
+
+article {
+    margin-bottom: 100px;
+}
+
+footer {
+    background: black;
+}
+
+footer .footer-wrapper {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.footer-flex-item {
+    width: 40%;
+}
+
+.footer-flex-item-main {
+    width: 60%;
+    margin-right: 10%;
+}
+
+footer .footer-heading {
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+footer .footer-text {
+    color: rgb(95, 95, 95);
+    font-size: 15px;
+    line-height: 1.4em;
 }
