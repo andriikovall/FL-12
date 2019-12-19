@@ -1,0 +1,110 @@
+/*
+ * Feel free to change name of colors if you need it
+ * Feel free to add new colors if you need it
+ */
+:root {
+  --bg-color--dark: #0b192f;
+  --bg-color--header: #024161;
+  --link: #fff;
+  --link--hover: #1f52a4;
+  --bg-footer-color: #024161;
+}
+
+body {
+  font-family: roboto;
+}
+
+.post-1 {
+  background: #9d27b0;
+}
+
+.post-2 {
+  background: #9bb800;
+}
+
+.post-3 {
+  background: #ed5120;
+}
+
+.post-4 {
+  background: #9d27b0;
+}
+
+.post-5 {
+  background: #2d95bb;
+}
+
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+body {
+  background: var( --bg-color--dark);
+}
+
+main {
+  /* border: purple dotted; */
+  margin: 0 auto;
+}
+
+
+@media screen and (max-width: 1400px) {
+  main {
+    width: 768px;
+  }
+  nav {
+    margin-right: 50px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    width: 100%;
+  }
+
+  /* nav {
+    margin-right: 10px;
+  } */
+}
+
+img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+.site-name {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  color: white;
+  font-weight: 100;
+  font-size: 25px;
+}
+
+.site-name span {
+  font-weight: 300;
+  color: rgb(199, 49, 199);
+}
+
+.nav-container {
+  padding-left: 1em;
+  padding-right: 1em;
+  background: var(--bg-color--header);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-container .nav-item {
+  font-size: 13px;
+  color: var(--link);
+  padding-left: 25px;
+  text-decoration: none;
+}
