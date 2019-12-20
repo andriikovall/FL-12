@@ -258,6 +258,10 @@ header .image-container {
   position: relative;
 }
 
+.image-container article {
+  position: absolute;
+  bottom: 0;
+}
 
 .news article {
   background: white;
