@@ -50,7 +50,6 @@ body {
 }
 
 main {
-  /* border: purple dotted; */
   margin: 0 auto;
 }
 
@@ -59,8 +58,30 @@ main {
   main {
     width: 768px;
   }
+  .article-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .article-wrapper:nth-child(2n) {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
   nav {
-    margin-right: 50px;
+    display: flex;
+  }
+
+  .nav-btn {
+    display: none;
+  }
+
+  section {
+    display: flex;
+  }
+
+  .news-container {
+    width: 100%;
   }
 }
 
@@ -69,9 +90,39 @@ main {
     width: 100%;
   }
 
-  /* nav {
-    margin-right: 10px;
-  } */
+  .article-wrapper {
+    display: flex;
+    flex-direction: column;  
+  }
+
+  .article-wrapper:nth-child(2n) {
+    flex-direction: column;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .nav-btn {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    width: 100%;
+  }
+
+  section {
+    flex-direction: column;
+  }
 }
 
 img {
@@ -86,6 +137,7 @@ img {
   color: white;
   font-weight: 100;
   font-size: 25px;
+  padding-left:0.5em;
 }
 
 .site-name span {
@@ -94,8 +146,6 @@ img {
 }
 
 .nav-container {
-  padding-left: 1em;
-  padding-right: 1em;
   background: var(--bg-color--header);
   width: 100%;
   display: flex;
@@ -105,6 +155,69 @@ img {
 .nav-container .nav-item {
   font-size: 13px;
   color: var(--link);
-  padding-left: 25px;
+  padding-left: 1em;
+  padding-right: 1em;
   text-decoration: none;
+  display: inline-flex;
+}
+
+.nav-container .nav-item:hover {
+  background: var(--link--hover);
+  transition: 0.2s;
+}
+
+.inner-nav-item-text {
+  position: relative;
+}
+
+.container {
+  margin: 0.5em;
+  position: relative;
+}
+
+article {
+  padding: 1.6em;
+  color: white;
+  border: none;
+}
+
+
+.article-wrapper .article-block {
+  height: 130px;
+}
+
+.article-header {
+  font-weight: 100;
+  font-size: 25px;
+  margin-top: 0;
+  margin-bottom: 0.2em;
+}
+
+/* .main-articles .article-header {
+  font-size: 33px;
+} */
+
+.article-bio {
+  font-weight: 100;
+  font-size: 10px;
+  line-height: 1.5em;
+}
+
+header .image-container {
+  height: 300px;
+  background: url('../img/post0.jpg');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+
+.news article {
+  background: white;
+  color: black;
+}
+
+.news .article-header {
+  font-size: 20px;
 }
