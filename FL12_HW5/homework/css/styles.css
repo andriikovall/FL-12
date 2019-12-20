@@ -18,20 +18,61 @@ body {
   background: #9d27b0;
 }
 
+.post-1:hover {
+  color: rgba(255, 255, 255, 0.699);
+  transition: 0.2s;
+  cursor: pointer;
+  background: #7c238a;
+  /* -webkit-filter: brightness(70%); */
+}
+
+
 .post-2 {
   background: #9bb800;
+}
+
+.post-2:hover {
+  color: rgba(255, 255, 255, 0.699);
+  transition: 0.2s;
+  cursor: pointer;
+  background: #7d9108;
+  /* -webkit-filter: brightness(70%); */
 }
 
 .post-3 {
   background: #ed5120;
 }
 
+.post-3:hover {
+  color: rgba(255, 255, 255, 0.699);
+  transition: 0.2s;
+  cursor: pointer;
+  background: #c2441e;
+  /* -webkit-filter: brightness(70%); */
+}
+
 .post-4 {
   background: #9d27b0;
 }
 
+.post-4:hover {
+  color: rgba(255, 255, 255, 0.699);
+  transition: 0.2s;
+  cursor: pointer;
+  background: #7c238a;
+  /* -webkit-filter: brightness(70%); */
+}
+
 .post-5 {
   background: #2d95bb;
+}
+
+.post-5:hover {
+  color: rgba(255, 255, 255, 0.699);
+  transition: 0.2s;
+  cursor: pointer;
+  background: #206e8a;
+  /* -webkit-filter: brightness(70%); */
 }
 
 
@@ -83,6 +124,10 @@ main {
   .news-container {
     width: 100%;
   }
+
+  .article-wrapper .article-block {
+    height: 130px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -112,6 +157,16 @@ main {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+  }
+
+  .article-wrapper .article-block {
+    height: auto;
+  }
+
+  footer {
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
   }
 }
 
@@ -181,21 +236,12 @@ article {
   border: none;
 }
 
-
-.article-wrapper .article-block {
-  height: 130px;
-}
-
 .article-header {
   font-weight: 100;
-  font-size: 25px;
+  font-size: 28px;
   margin-top: 0;
   margin-bottom: 0.2em;
 }
-
-/* .main-articles .article-header {
-  font-size: 33px;
-} */
 
 .article-bio {
   font-weight: 100;
@@ -220,4 +266,16 @@ header .image-container {
 
 .news .article-header {
   font-size: 20px;
+}
+
+footer {
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  background: var(--bg-footer-color);
+  color: grey;
+  font-weight: 100;
+  font-size: 10px;
+  line-height: 0.7em;
 }
