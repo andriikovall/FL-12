@@ -32,6 +32,8 @@ for (let str of strings) {
     console.log(makeNumber(str))
 }
 
+console.log('----------------------------------');
+
 for (let str of strings) {
     console.log(makeNumber2(str))
 }
