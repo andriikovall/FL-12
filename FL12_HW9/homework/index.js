@@ -31,7 +31,7 @@ function mapArray(arr, callback) {
     }
     let newArr = [];
 
-    for (let item of arr) {
+    for (const item of arr) {
         const mappedItem = callback(parseInt(item));
         newArr.push(mappedItem);
     }
