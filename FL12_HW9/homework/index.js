@@ -137,7 +137,7 @@ function formatDate(date) {
     if (!isValidDate(date)) {
         return null;
     }
-    const year = date.getYear();
+    const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const hours = convertNumToStringOfSize(date.getHours(), 2);
