@@ -1,4 +1,4 @@
-const Fighter = function({ name, damage, hp, strength, agility }) {
+const Fighter = function({ name, damage, strength, agility, hp }) {
     // probably should check input values but it wasnt mentioned in task 
     // and we can assume that all inputs are valid
     const maxHP = hp;
@@ -43,47 +43,67 @@ const Fighter = function({ name, damage, hp, strength, agility }) {
                 enemy.dealDamage(attackerDmg);
                 console.log(`${this.getName()} makes ${attackerDmg} damage to ${enemy.getName()}`);
             } else {
-                console.log(`${enemy.getName()} attack missed`);
+                console.log(`${this.getName()} attack missed`);
             }
         }
     }()
 }
 
-const fighter1 = new Fighter({ name: 'Ander', damage: 45, strength: 10, hp: 0, agility: 5 });
-const fighter2 = new Fighter({ name: 'Victor Petrovich', damage: 60, strength: 20, hp: 0, agility: 5 });
+const fighter1 = new Fighter({ name: 'Andrey', damage: 15, strength: 10, agility: 50, hp: 130 });
+const fighter2 = new Fighter({ name: 'Victor Petrovich', damage: 10, strength: 50, agility: 10, hp: 200 });
+const fighter3 = new Fighter({ name: 'EPAM ADMIN', damage: 10, strength: 40, agility: 5, hp: 120 });
 
 
-function checkFightersAlive(...fighters) {
-    let isAnyDead = false;
-    for (const f of fighters) {
-        if (f.getHealth() <= 0) {
-            const message = `${f.getName()} is dead and can't fight`;
-            console.log(message);
-            isAnyDead = true;
-        }
+function getDeadFighters(...fighters) {
+    return fighters.filter(f => f.getHealth() <= 0);
+}
+
+function getAliveFighters(...fighters) {
+    return fighters.filter(f => f.getHealth() > 0);
+}
+
+function checkFightersAliveInTheBegining(fighters) {
+    const deadFighters = getDeadFighters(...fighters);
+    for (const f of deadFighters) {
+        const message = `${f.getName()} is dead and can't fight`;
+        console.log(message);
     }
-    return !isAnyDead;
+    return deadFighters.length === 0;
+}
+
+function getWinner(f1, f2) {
+    const aliveFighters = getAliveFighters(f1, f2);
+    return aliveFighters.length === 1 ? aliveFighters[0] : null;
+}
+
+function getLoser(f1, f2) {
+    const deadFighters = getDeadFighters(f1, f2);
+    return deadFighters.length === 1 ? deadFighters[0] : null;
 }
 
 function battle(f1, f2) {
-    if (!checkFightersAlive(f1, f2)) {
+    console.log(`\nBATTLE BEETWEEN --${f1.getName()}-- and --${f2.getName()}--`);
+    if (!checkFightersAliveInTheBegining([f1, f2])) {
         return;
     }
+    let winner = null;
+    let loser = null;
+    do {
+        f1.attack(f2);
+        winner = getWinner(f1, f2);
+        loser = getLoser(f1, f2);
+        [f1, f2] = [f2, f1];
+    } while (!winner);
+    winner.addWin();
+    loser.addLoss();
+    const message = `${winner.getName()} has won!`;
+    console.log(message);
+    console.log(`BATTLE HAS ENDED ---\n`);
+    return;
 }
 
 battle(fighter1, fighter2);
+battle(fighter2, fighter3);
+battle(fighter3, fighter1);
 
-
-
-
-
-// helper func
-function logFighterStats(f) {
-    console.table({
-        name: f.getName(), 
-        damage: f.getDamage(), 
-        strength: f.getStrength(), 
-        agility: f.getAgility(), 
-        health: f.getHealth()
-    });
-}
+[fighter1, fighter2, fighter3].forEach(f => f.logCombatHistory());
