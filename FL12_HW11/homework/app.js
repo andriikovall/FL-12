@@ -104,7 +104,7 @@ function buildTree() {
 function createElementFromFileStructure(currFileNode) {
   if (currFileNode.folder) {
 
-    const onFolderClick = getEvent(currFileNode);
+    const onFolderClick = getEventHandler(currFileNode);
     const folderEl = createFolderElement(currFileNode.title, false, onFolderClick);
 
     if (!currFileNode.children || currFileNode.children.length === 0) {
@@ -126,7 +126,7 @@ function createElementFromFileStructure(currFileNode) {
 }
 
 
-function getEvent(file) {
+function getEventHandler(file) {
   const isFolder = !!file.folder;
   let isOpened = false;
   return function (event) {
