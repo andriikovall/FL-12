@@ -1,0 +1,21 @@
+.folder-colour {
+    color: rgb(236, 194, 6);
+}
+
+.file-colour {
+    color: rgb(150, 148, 148);
+}
+
+i {
+    float: left;
+}
+
+.file-name {
+    padding-top: 0.25em;
+    margin: 0;
+}
+
+.file-name:hover {
+    background-color: rgb(241, 241, 241);
+    cursor: pointer;
+}
