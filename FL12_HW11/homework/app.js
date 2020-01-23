@@ -1,3 +1,4 @@
+  
 const structure = [
   {
     'folder': true,
@@ -30,17 +31,6 @@ const structure = [
         'folder': true,
         'title': 'EPAM Homework answers',
         'children': null
-      }, 
-      {
-        folder: true, 
-        title: 'test<h1>djnfdsjf</h1>',
-        children: [
-          {
-            'folder': true,
-            'title': 'EPAM Homework answers',
-            'children': null
-          }
-        ]
       }
     ]
   }
