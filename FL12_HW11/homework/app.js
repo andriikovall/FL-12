@@ -55,14 +55,14 @@ function createFileNameElement(name) {
 
 function createFolderElement(name, level, isOpened) {
   const innerHTML = isOpened ? openedFolderHtml : folderHtml;
-  const el = createFile(name, level, innerHTML);
+  const el = createTreeElement(name, level, innerHTML);
   return el;
 }
 
-function createFile(name, level, innerHTML) {
+function createTreeElement(name, level, htmlForIcon) {
   const el = document.createElement('div');
   el.setAttribute('class', 'file');
-  el.innerHTML = innerHTML;
+  el.innerHTML = htmlForIcon;
   el.appendChild(createFileNameElement(name));
 
   const paddingLeft = caclPaddingLeftInEms(level);
@@ -72,14 +72,13 @@ function createFile(name, level, innerHTML) {
 }
 
 function createFileElement(name, level) {
-  const el = createFile(name, level, fileHtml);
+  const el = createTreeElement(name, level, fileHtml);
   return el;
 }
 
 function creteFolderIsEmptyElement(level) {
-  const el = document.createElement('div');
-  el.innerHTML = '<i>Folder is empty</i>';
-  el.style.paddingLeft = `${caclPaddingLeftInEms(level)}em`;
+  const el = createTreeElement('Folder is empty', level, '');
+  el.style.fontStyle = 'italic';
   return el;
 }
 
@@ -95,7 +94,9 @@ function createElementFromFileStructure(currFileDOMNode, currFileNode, level) {
     const folderEl = createFolderElement(currFileNode.title, level, false);
     // currFileDOMNode.appendChild(folderEl);
     if (!currFileNode.children) {
-      return creteFolderIsEmptyElement(level);
+      const folderIsEmptyElement = creteFolderIsEmptyElement(level - 1);
+      folderEl.appendChild(folderIsEmptyElement);
+      return folderEl;
     }
     for (const child of currFileNode.children) {
       const childEl = createElementFromFileStructure(folderEl, child, level + 1);
