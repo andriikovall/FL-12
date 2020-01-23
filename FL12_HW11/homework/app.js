@@ -46,24 +46,25 @@ function caclPaddingLeftInEms(level) {
   return level * proportionalKoef;
 }
 
-function createFileNameElement(name) {
+function createFileNameElement(name, onclick) {
   const nameEl = document.createElement('p');
   nameEl.setAttribute('class', 'file-name');
   nameEl.innerText = name;
+  nameEl.onclick = onclick;
   return nameEl;
 }
 
-function createFolderElement(name, level, isOpened) {
+function createFolderElement(name, level, isOpened, onclick) {
   const innerHTML = isOpened ? openedFolderHtml : folderHtml;
-  const el = createTreeElement(name, level, innerHTML);
+  const el = createTreeElement(name, level, innerHTML, onclick);
   return el;
 }
 
-function createTreeElement(name, level, htmlForIcon) {
+function createTreeElement(name, level, htmlForIcon, onclick) {
   const el = document.createElement('div');
   el.setAttribute('class', 'file');
   el.innerHTML = htmlForIcon;
-  el.appendChild(createFileNameElement(name));
+  el.appendChild(createFileNameElement(name, onclick));
 
   const paddingLeft = caclPaddingLeftInEms(level);
   el.style.marginLeft = `${paddingLeft}em`;
@@ -85,50 +86,63 @@ function creteFolderIsEmptyElement(level) {
 
 function buildTree() {
   for (const file of structure) { 
-    const el = createElementFromFileStructure(rootNode, file, 0);
+    const el = createElementFromFileStructure(file, 0);
     rootNode.appendChild(el);
   }
 }
 
-function createElementFromFileStructure(currFileDOMNode, currFileNode, level) {
+const fileNodesToDOM = new Map();
+
+function createElementFromFileStructure(currFileNode, level) {
+  const cachedNode = fileNodesToDOM.get(currFileNode);
+  if (cachedNode) {
+    return cachedNode;
+  }
   if (currFileNode.folder) {
-    const folderEl = createFolderElement(currFileNode.title, level, false);
-    folderEl.onclick = bindElementAndLevelToFileNode(currFileNode, level);
+    const onFolderClick = bindElementToFileNode(currFileNode);
+    const folderEl = createFolderElement(currFileNode.title, level, true, onFolderClick);
     if (!currFileNode.children) {
       const folderIsEmptyElement = creteFolderIsEmptyElement(level - 1);
       folderEl.appendChild(folderIsEmptyElement);
+      fileNodesToDOM.set(currFileNode, folderEl);
       return folderEl;
     }
     for (const child of currFileNode.children) {
-      const childEl = createElementFromFileStructure(folderEl, child, level + 1); 
+      const childEl = createElementFromFileStructure(child, level + 1); 
       folderEl.appendChild(childEl);
     }
+    fileNodesToDOM.set(currFileNode, folderEl);
     return folderEl;
   } else {
     const fileEl = createFileElement(currFileNode.title, level);
+    fileNodesToDOM.set(currFileNode, fileEl);
     return fileEl;
   }
 }
 
 
-function bindElementAndLevelToFileNode(file, level) {
+function bindElementToFileNode(file) {
   const isFolder = !!file.folder;
   let isOpened = true;
   return function(event) {
-    const targetEl = event.target.tagName === 'DIV' ? event.target : event.target.parentNode;
+    const target = event.target;
     event.preventDefault();
     if (isFolder) {
       if (isOpened) {
-        for (const child of targetEl.children) {
-          if (child.getAttribute('class') === 'file') {
-            child.innerHTML = '';
+          let nextEl = target.nextSibling;
+          while(nextEl) {
+            if (nextEl.getAttribute('class') === 'file') {
+              nextEl.style.display = 'none';
+              nextEl = nextEl.nextSibling;
+            }
           }
-        }
       } else {
-        if (Array.isArray(file.children)) {
-          for (const fileChild of file.children) {
-            targetEl.appendChild(createElementFromFileStructure(targetEl, fileChild, level + 1));
-          } 
+        let nextEl = target.nextSibling
+        while(nextEl) {
+          if (nextEl.getAttribute('class') === 'file') {
+            nextEl.style.display = 'block';
+            nextEl = nextEl.nextSibling;
+          }
         }
       }
       isOpened = !isOpened;
