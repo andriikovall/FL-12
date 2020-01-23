@@ -38,19 +38,23 @@ const structure = [
 
 const rootNode = document.getElementById('root');
 
-const folderTextForMaterialIcons = 'folder'
-const folderHtml = `<i class="material-icons folder-colour" style="">${folderTextForMaterialIcons}</i>`;
 
-const openedFolderTextForMaterialIcons = 'folder_open'
-const openedFolderHtml = `<i class="material-icons folder-colour" style="">${openedFolderTextForMaterialIcons}</i>`;
+const folderImage = {
+  text: 'folder', 
+  html:  `<i class="material-icons folder-colour" style="">folder</i>`
+};
 
-const fileTextForMaterialIcons = 'insert_drive_file';
-const fileHtml = `<i class="material-icons file-colour">${fileTextForMaterialIcons}</i>`;
-
-function caclPaddingLeftInEms(level) {
-  const proportionalKoef = 1;
-  return level * proportionalKoef;
+const openedFolderImage = {
+  text: 'folder_open', 
+  html: `<i class="material-icons folder-colour" style="">folder_open</i>`
 }
+
+const fileImage = {
+  text: 'insert_drive_file', 
+  html: `<i class="material-icons file-colour" style="">insert_drive_file</i>`
+}; 
+
+const paddingLeftImEms = 0.8;
 
 function createFileNameElement(name, onclick) {
   const nameEl = document.createElement('p');
@@ -60,32 +64,31 @@ function createFileNameElement(name, onclick) {
   return nameEl;
 }
 
-function createFolderElement(name, level, isOpened, onclick) {
-  const innerHTML = isOpened ? openedFolderHtml : folderHtml;
-  const el = createTreeElement(name, level, innerHTML, onclick);
+function createFolderElement(name, isOpened, onclick) {
+  const innerHTML = isOpened ? openedFolderImage.html : folderImage.html;
+  const el = createTreeElement(name, innerHTML, onclick);
   el.classList.add('folder')
   return el;
 }
 
-function createTreeElement(name, level, htmlForIcon, onclick) {
+function createTreeElement(name, htmlForIcon, onclick) {
   const el = document.createElement('div');
+
   el.setAttribute('class', 'file');
   el.innerHTML = htmlForIcon;
   el.appendChild(createFileNameElement(name, onclick));
-
-  const paddingLeft = caclPaddingLeftInEms(level);
-  el.style.paddingLeft = `${paddingLeft}em`;
+  el.style.paddingLeft = `${paddingLeftImEms}em`;
 
   return el;
 }
 
-function createFileElement(name, level) {
-  const el = createTreeElement(name, level, fileHtml);
+function createFileElement(name) {
+  const el = createTreeElement(name, fileImage.html);
   return el;
 }
 
-function creteFolderIsEmptyElement(level) {
-  const el = createTreeElement('Folder is empty', level, '');
+function creteFolderIsEmptyElement() {
+  const el = createTreeElement('Folder is empty', '');
   el.firstChild.setAttribute('class', 'file-name no-hover-bg');
   el.style.fontStyle = 'italic';
   return el;
@@ -98,32 +101,32 @@ function buildTree() {
   }
 }
 
-function createElementFromFileStructure(currFileNode, level) {
+function createElementFromFileStructure(currFileNode) {
   if (currFileNode.folder) {
 
-    const onFolderClick = bindElementToFileNode(currFileNode);
-    const folderEl = createFolderElement(currFileNode.title, level, false, onFolderClick);
+    const onFolderClick = getEvent(currFileNode);
+    const folderEl = createFolderElement(currFileNode.title, false, onFolderClick);
 
     if (!currFileNode.children || currFileNode.children.length === 0) {
 
-      const folderIsEmptyElement = creteFolderIsEmptyElement(level);
+      const folderIsEmptyElement = creteFolderIsEmptyElement();
       folderEl.appendChild(folderIsEmptyElement);
       return folderEl;
 
     }
     for (const child of currFileNode.children) {
-      const childEl = createElementFromFileStructure(child, level); 
+      const childEl = createElementFromFileStructure(child); 
       folderEl.appendChild(childEl);
     }
     return folderEl;
   } else {
-    const fileEl = createFileElement(currFileNode.title, level);
+    const fileEl = createFileElement(currFileNode.title);
     return fileEl;
   }
 }
 
 
-function bindElementToFileNode(file) {
+function getEvent(file) {
   const isFolder = !!file.folder;
   let isOpened = false;
   return function (event) {
@@ -134,7 +137,7 @@ function bindElementToFileNode(file) {
     }
     if (isOpened) {
       let nextEl = target.nextSibling;
-      target.previousSibling.innerText = folderTextForMaterialIcons;
+      target.previousSibling.innerText = folderImage.text;
       while (nextEl) {
         if (nextEl.classList.contains('file')) {
           nextEl.style.display = 'none';
@@ -143,7 +146,7 @@ function bindElementToFileNode(file) {
       }
     } else {
       let nextEl = target.nextSibling
-      target.previousSibling.innerText = openedFolderTextForMaterialIcons;
+      target.previousSibling.innerText = openedFolderImage.text;
       while (nextEl) {
         if (nextEl.classList.contains('file')) {
           nextEl.style.display = 'block';
