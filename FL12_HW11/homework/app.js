@@ -78,6 +78,7 @@ function createFileElement(name, level) {
 
 function creteFolderIsEmptyElement(level) {
   const el = createTreeElement('Folder is empty', level, '');
+  el.firstChild.setAttribute('class', 'file-name no-hover-bg');
   el.style.fontStyle = 'italic';
   return el;
 }
@@ -92,7 +93,6 @@ function buildTree() {
 function createElementFromFileStructure(currFileDOMNode, currFileNode, level) {
   if (currFileNode.folder) {
     const folderEl = createFolderElement(currFileNode.title, level, false);
-    // currFileDOMNode.appendChild(folderEl);
     if (!currFileNode.children) {
       const folderIsEmptyElement = creteFolderIsEmptyElement(level - 1);
       folderEl.appendChild(folderIsEmptyElement);
