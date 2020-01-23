@@ -1,9 +1,9 @@
 .folder-colour {
-    color: rgb(236, 194, 6);
+    color: rgba(236, 194, 6, 0.877);
 }
 
 .file-colour {
-    color: rgb(150, 148, 148);
+    color: rgba(150, 148, 148, 0.507);
 }
 
 i {
