@@ -96,7 +96,7 @@ function creteFolderIsEmptyElement() {
 
 function buildTree() {
   for (const file of structure) {
-    const el = createElementFromFileStructure(file, 1);
+    const el = createElementFromFileStructure(file);
     rootNode.appendChild(el);
   }
 }
