@@ -20,7 +20,8 @@ const { insertSet, updateSet, deleteSet, getAllSets, getSetById } = (() => {
 
   // -----------------------------
   function getSetById(id) {
-    return getAllSets().filter(s => s.id === id)[0] || null;
+    const firstElemIndex = 0;
+    return getAllSets().filter(s => s.id === id)[firstElemIndex] || null;
   }
   function getAllSets() {
     return newSets.concat(studiedSets);
