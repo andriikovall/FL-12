@@ -93,7 +93,7 @@ document.getElementById('set-form').onsubmit = (e) => {
 
 function getRenderedSets() {
   function getRenderedSet(set) {
-    const table = htmlToElement('<table border="1px"></table>');
+    const table = htmlToElement(`<table border="1px" data-id="${set.id}"></table>`);
     const nameRow = document.createElement('tr');
     nameRow.appendChild(htmlToElement(`<th colspan="2">${set.name}</th>`));
     table.appendChild(nameRow);
