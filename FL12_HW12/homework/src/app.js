@@ -15,12 +15,8 @@ const { insertSet, updateSet, deleteSet, getAllSets, getSetById } = (() => {
   function saveSets() {
     localStorage['studiedSets'] = JSON.stringify(studiedSets);
     localStorage['newSets'] = JSON.stringify(newSets);
+    localStorage['nextId'] = nextId;
   }
-
-  function getListOfSetsForSet(set) {
-    return set.isStudied ? studiedSets : newSets;
-  }
-  // -----------------------------
 
   // -----------------------------
   function getSetById(id) {
@@ -30,12 +26,8 @@ const { insertSet, updateSet, deleteSet, getAllSets, getSetById } = (() => {
     return newSets.concat(studiedSets);
   }
   function updateSet(set) {
-    console.log('studiedSets:', studiedSets)
     studiedSets = studiedSets.map(s => s.id === set.id ? set : s);
-    console.log('studiedSets:', studiedSets)
-    console.log('newSets:', newSets)
     newSets = newSets.map(s => s.id === set.id ? set : s);
-    console.log('newSets:', newSets)
     saveSets();
   }
   function insertSet(set) {
@@ -71,9 +63,8 @@ function createTermInputBlock(name = '', definition = '') {
 
 document.getElementById('set-form').onsubmit = (e) => {
   e.preventDefault();
-  const heading = document.querySelector('#add-or-update h1');
-  heading.innerHTML = isEditing ? 'Editing set' : 'New set';
   const form = e.target;
+  const id = parseInt(form.getAttribute('action')); 
   const setName = document.querySelector('#set-form input[name="name"]').value;
   const terms = [];
   const elements = document.getElementById('set-form').elements;
@@ -90,10 +81,8 @@ document.getElementById('set-form').onsubmit = (e) => {
     name: setName,
     terms: terms
   };
-  const id = parseInt(form.getAttribute('action'));
   if (id) {
     set.id = id;
-    console.log(set);
     updateSet(set);
   } else {
     insertSet(set);
@@ -145,12 +134,6 @@ function onEditClicked(event) {
   const id = parseInt(btnMethod.split('-')[1]);
   window.location.hash = '/modify/' + id;
 }
-
-
-// document.getElementById('submitBtn').onclick = (e) => {
-//     e.preventDefault();
-//     console.log(e.target.form);
-// }
 
 
 
@@ -221,11 +204,13 @@ function getEventHandler(newHash) {
     addOrUpdateElement.style.display = 'block';
     isEditing = false;
     document.getElementById('set-form').setAttribute('action', '#');
+    document.querySelector('#add-or-update h1').innerText = 'New set';
   }
 
   const handleEdit = (() => {
     const invalidId = -1;
     const id = parseInt(route[1]) || invalidId;
+    document.querySelector('#add-or-update h1').innerText = 'Editing set';
     return function () {
       mainElement.style.display = 'none';
       addOrUpdateElement.style.display = 'block';
@@ -258,7 +243,6 @@ function getEventHandler(newHash) {
 
   // eslint-disable-next-line no-magic-numbers
   const handler = routes[route[0]] || routes['main'];
-  console.log(route);
   return handler;
 }
 
