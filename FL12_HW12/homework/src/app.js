@@ -1,6 +1,6 @@
 const rootElement = document.getElementById('root');
 
-const { insertSet, updateSet, deleteSet } = () => {
+const { insertSet, updateSet, deleteSet } = (() => {
     let nextId = JSON.parse(localStorage['nextId'] || '1');
     const studiedSets = JSON.parse(localStorage['studiedSets'] || '[]');
     const newSets = JSON.parse(localStorage['newSets'] || '[]');
@@ -34,19 +34,75 @@ const { insertSet, updateSet, deleteSet } = () => {
         saveSets();
     }
     // -----------------------------
-}
+
+    return {
+        insertSet, updateSet, deleteSet
+    };
+})();
 
 function createTermInputBlock() {
     const div = document.createElement('div');
     div.setAttribute('class', 'term-input');
     div.innerHTML = 
     `Name:
-    <input type="text" name="term-name" required>
+    <input type="text" name="term-name" required />
     Definition:
-    <input type="text" name="term-definition" required>
+    <input type="text" name="term-definition" required />
     <button type="button" class="removeBtn" onclick="onRemove(event)">Remove</button>`;
     return div;
 }
+
+
+document.getElementById('set-form').onsubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const setName = document.querySelector('#set-form input[name="name"]').value;
+    const terms = [];
+    const elements = document.getElementById('set-form').elements;
+    for(let i = 0 ; i < elements.length ; i++ ){
+        const item = elements.item(i);
+        if (item.name === 'term-name') {
+            const termName = item.value;
+            const nextItem = elements.item(i + 1);
+            const termDefinition = nextItem.value;
+            terms.push({ name: termName, definition: termDefinition });
+        }
+    }
+    const set = {
+        name: setName, 
+        terms: terms
+    };
+    insertSet(set);
+}
+
+// document.getElementById('submitBtn').onclick = (e) => {
+//     e.preventDefault();
+//     console.log(e.target.form);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 document.getElementById('addBtn').onclick = (e) => {
     e.preventDefault();
@@ -59,6 +115,27 @@ function onRemove(e) {
     const termInputElement = e.target.parentNode;
     document.getElementById('terms').removeChild(termInputElement);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function getEventHandler(newHash) {
     const route = newHash.split('/').slice(1).filter(s => s);
