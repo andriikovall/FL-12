@@ -1,9 +1,9 @@
 const rootElement = document.getElementById('root');
 
-const { insertSet, updateSet, deleteSet } = (() => {
+const { insertSet, updateSet, deleteSet, getAllSets } = (() => {
     let nextId = JSON.parse(localStorage['nextId'] || '1');
-    const studiedSets = JSON.parse(localStorage['studiedSets'] || '[]');
-    const newSets = JSON.parse(localStorage['newSets'] || '[]');
+    let studiedSets = JSON.parse(localStorage['studiedSets'] || '[]');
+    let newSets = JSON.parse(localStorage['newSets'] || '[]');
 
 
     // -----------------------------
@@ -18,6 +18,9 @@ const { insertSet, updateSet, deleteSet } = (() => {
     // -----------------------------
 
     // -----------------------------
+    function getAllSets() {
+        return newSets.concat(studiedSets);
+    }
     function updateSet(set) {
         const listOfSets = getListOfSetsForSet(set);
         listOfSets.map(s => s.id === set.id ? set : s);
@@ -25,18 +28,19 @@ const { insertSet, updateSet, deleteSet } = (() => {
     }
     function insertSet(set) {
         set.id = nextId++;
+        set.isStudied = false;
         newSets.push(set);
         saveSets();
     }
-    function deleteSet(set) {
-        const listOfSets = getListOfSetsForSet(set);
-        listOfSets.filter(s => s.id !== set.id);
+    function deleteSet(id) {
+        studiedSets = studiedSets.filter(s => s.id !== id);
+        newSets = newSets.filter(s => s.id !== id);
         saveSets();
     }
     // -----------------------------
 
     return {
-        insertSet, updateSet, deleteSet
+        insertSet, updateSet, deleteSet, getAllSets
     };
 })();
 
@@ -75,6 +79,43 @@ document.getElementById('set-form').onsubmit = (e) => {
     insertSet(set);
 }
 
+function getRenderedSets() {
+    function getRenderedSet(set) {
+        const table = htmlToElement('<table border="1px"></table>');
+        const nameRow = document.createElement('tr');
+        nameRow.appendChild(htmlToElement(`<th colspan="2">${set.name}</th>`));
+        table.appendChild(nameRow);
+
+        const terms = set.terms;
+        for (const t of terms) {
+            const termRow = htmlToElement(`<tr>
+                                              <td>${t.name}</td>
+                                              <td>${t.definition}</td>
+                                          </tr>`);    
+            table.appendChild(termRow);
+        }
+        table.appendChild(htmlToElement(`<button id="delete-${set.id}" onclick="onDelete(event)">Delete</button>`));
+        table.appendChild(htmlToElement(`<button id="edit-${set.id}" onclick="onEdit(event)">Edit</button>`));
+        return table;
+    } 
+
+    
+    const sets = getAllSets();
+    const container = document.createElement('div');
+    for (const s of sets) {
+        container.appendChild(getRenderedSet(s));
+    }
+    return container;
+}
+
+
+function onDelete(event) {
+    const target = event.target;
+    const btnMethod = event.target.getAttribute('id');
+    const id = parseInt(btnMethod.split('-')[1]);
+    deleteSet(id);
+    target.parentNode.parentNode.removeChild(target.parentNode);
+}
 // document.getElementById('submitBtn').onclick = (e) => {
 //     e.preventDefault();
 //     console.log(e.target.form);
@@ -132,9 +173,11 @@ function onRemove(e) {
 
 
 
-
-
-
+function htmlToElement(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
+    return template.content.firstChild;
+}
 
 
 function getEventHandler(newHash) {
@@ -157,8 +200,10 @@ function getEventHandler(newHash) {
     })();
 
     function handleMain() {
-        mainElement.style.display = 'block';
         addOrUpdateElement.style.display = 'none';
+        mainElement.innerHTML = ' ';
+        mainElement.style.display = 'block';
+        mainElement.appendChild(getRenderedSets());
     }
 
     const routes = {
