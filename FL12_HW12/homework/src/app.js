@@ -61,11 +61,9 @@ const {
   }
   function markSetAsStudied(setId) {
     setId = parseInt(setId);
-    const setIndexInOldList = newSets.findIndex(s => console.log('s:', s) || s.id === setId);
+    const setIndexInOldList = newSets.findIndex(s => s.id === setId);
     const firstValidIndex = 0;
-    console.log('setId:', setId, setIndexInOldList)
     if (setIndexInOldList < firstValidIndex) {
-      console.log('error markSetAsStudied');
       return;
     }
     const set = newSets[setIndexInOldList];
@@ -191,28 +189,6 @@ function onTableClick(event) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 document.getElementById('addBtn').onclick = (e) => {
   e.preventDefault();
   const termBlockInput = createTermInputBlock();
@@ -224,24 +200,6 @@ function onRemove(e) {
   const termInputElement = e.target.parentNode;
   termsForm.removeChild(termInputElement);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-function inMain() {
-  
-}
-
-
-
 
 function htmlToElement(html) {
   const template = document.createElement('template');
