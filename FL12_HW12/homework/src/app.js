@@ -1,13 +1,19 @@
 const rootElement = document.getElementById('root');
 
+const setForm = document.getElementById('set-form');
+const termsForm = document.getElementById('terms');
+
+const addOrUpdateElement = document.getElementById('add-or-update');
+const mainElement = document.getElementById('main');
+
 function resetToMain() {
   window.location.hash = '/main';
   resetForm();
 }
 
 function resetForm() {
-  document.getElementById('set-form').reset();
-  document.getElementById('terms').innerHTML = '';
+  setForm.reset();
+  termsForm.innerHTML = '';
 }
 
 const { 
@@ -88,13 +94,13 @@ function createTermInputBlock(name = '', definition = '') {
 }
 
 
-document.getElementById('set-form').onsubmit = (e) => {
+setForm.onsubmit = (e) => {
   e.preventDefault();
   const form = e.target;
   const id = parseInt(form.getAttribute('action'));
   const setName = document.querySelector('#set-form input[name="name"]').value;
   const terms = [];
-  const elements = document.getElementById('set-form').elements;
+  const elements = setForm.elements;
   for (let i = 0; i < elements.length; i++) {
     const item = elements.item(i);
     if (item.name === 'term-name') {
@@ -210,13 +216,13 @@ function onTableClick(event) {
 document.getElementById('addBtn').onclick = (e) => {
   e.preventDefault();
   const termBlockInput = createTermInputBlock();
-  document.getElementById('terms').appendChild(termBlockInput);
+  termsForm.appendChild(termBlockInput);
 }
 
 function onRemove(e) {
   e.preventDefault();
   const termInputElement = e.target.parentNode;
-  document.getElementById('terms').removeChild(termInputElement);
+  termsForm.removeChild(termInputElement);
 }
 
 
@@ -243,15 +249,11 @@ function htmlToElement(html) {
   return template.content.firstChild;
 }
 
-let isEditing = false;
-const addOrUpdateElement = document.getElementById('add-or-update');
-const mainElement = document.getElementById('main');
 
 function handleAdd() {
   mainElement.style.display = 'none';
   addOrUpdateElement.style.display = 'block';
-  isEditing = false;
-  document.getElementById('set-form').setAttribute('action', '#');
+  setForm.setAttribute('action', '#');
   document.querySelector('#add-or-update h1').innerText = 'New set';
   resetForm();
 }
@@ -261,7 +263,6 @@ function handleMain() {
   mainElement.innerHTML = ' ';
   mainElement.style.display = 'block';
   mainElement.appendChild(getRenderedSets());
-  isEditing = false;
   resetToMain();
 }
 
@@ -278,14 +279,12 @@ function getEventHandler(newHash) {
       resetForm();
       mainElement.style.display = 'none';
       addOrUpdateElement.style.display = 'block';
-      isEditing = true;
       const set = getSetById(id);
-      const termsForm = document.getElementById('terms');
       for (const t of set.terms) {
         const elem = createTermInputBlock(t.name, t.definition);
         termsForm.appendChild(elem);
       }
-      document.getElementById('set-form').setAttribute('action', id);
+      setForm.setAttribute('action', id);
       termsForm.previousSibling.previousSibling.value = set.name;
     }
   })();
