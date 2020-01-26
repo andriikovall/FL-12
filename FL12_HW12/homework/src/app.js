@@ -2,14 +2,25 @@ const rootElement = document.getElementById('root');
 
 function resetToMain() {
   window.location.hash = '/main';
+  resetForm();
+}
+
+function resetForm() {
+  document.getElementById('set-form').reset();
   document.getElementById('terms').innerHTML = '';
 }
 
-const { insertSet, updateSet, deleteSet, getAllSets, getSetById } = (() => {
+const { 
+  insertSet, 
+  updateSet, 
+  deleteSet, 
+  getAllSets, 
+  getSetById, 
+  markSetAsStudied
+} = (function() {
   let nextId = JSON.parse(localStorage['nextId'] || '1');
   let studiedSets = JSON.parse(localStorage['studiedSets'] || '[]');
   let newSets = JSON.parse(localStorage['newSets'] || '[]');
-
 
   // -----------------------------
   function saveSets() {
@@ -42,10 +53,25 @@ const { insertSet, updateSet, deleteSet, getAllSets, getSetById } = (() => {
     newSets = newSets.filter(s => s.id !== id);
     saveSets();
   }
+  function markSetAsStudied(setId) {
+    setId = parseInt(setId);
+    const setIndexInOldList = newSets.findIndex(s => console.log('s:', s) || s.id === setId);
+    const firstValidIndex = 0;
+    console.log('setId:', setId, setIndexInOldList)
+    if (setIndexInOldList < firstValidIndex) {
+      console.log('error markSetAsStudied');
+      return;
+    }
+    const set = newSets[setIndexInOldList];
+    set.isStudied = true;
+    studiedSets.push(set);
+    newSets.splice(setIndexInOldList, 1);
+    saveSets();
+  }
   // -----------------------------
 
   return {
-    insertSet, updateSet, deleteSet, getAllSets, getSetById
+    insertSet, updateSet, deleteSet, getAllSets, getSetById, markSetAsStudied
   };
 })();
 
@@ -65,7 +91,7 @@ function createTermInputBlock(name = '', definition = '') {
 document.getElementById('set-form').onsubmit = (e) => {
   e.preventDefault();
   const form = e.target;
-  const id = parseInt(form.getAttribute('action')); 
+  const id = parseInt(form.getAttribute('action'));
   const setName = document.querySelector('#set-form input[name="name"]').value;
   const terms = [];
   const elements = document.getElementById('set-form').elements;
@@ -94,7 +120,10 @@ document.getElementById('set-form').onsubmit = (e) => {
 
 function getRenderedSets() {
   function getRenderedSet(set) {
-    const table = htmlToElement(`<table border="1px" data-id="${set.id}"></table>`);
+    const table = htmlToElement(`<table border="1px" data-id="${set.id}" onclick="onTableClick(event)"></table>`);
+    if (set.isStudied) {
+      table.style.background = 'grey';
+    }
     const nameRow = document.createElement('tr');
     nameRow.appendChild(htmlToElement(`<th colspan="2">${set.name}</th>`));
     table.appendChild(nameRow);
@@ -114,6 +143,7 @@ function getRenderedSets() {
 
 
   const sets = getAllSets();
+
   const container = document.createElement('div');
   for (const s of sets) {
     container.appendChild(getRenderedSet(s));
@@ -134,6 +164,23 @@ function onEditClicked(event) {
   const btnMethod = event.target.getAttribute('id');
   const id = parseInt(btnMethod.split('-')[1]);
   window.location.hash = '/modify/' + id;
+}
+
+function onTableClick(event) {
+  if (event.target.tagName === 'BUTTON') {
+    return;
+  }
+  const targetTable = (() => {
+    let target = event.target;
+    while (target.tagName !== 'TABLE') {
+      target = target.parentNode;
+    }
+    return target;
+  })();
+
+  const setId = targetTable.dataset.id;
+  markSetAsStudied(setId);
+  handleMain();
 }
 
 
@@ -183,7 +230,9 @@ function onRemove(e) {
 
 
 
-
+function inMain() {
+  
+}
 
 
 
@@ -195,24 +244,38 @@ function htmlToElement(html) {
 }
 
 let isEditing = false;
+const addOrUpdateElement = document.getElementById('add-or-update');
+const mainElement = document.getElementById('main');
+
+function handleAdd() {
+  mainElement.style.display = 'none';
+  addOrUpdateElement.style.display = 'block';
+  isEditing = false;
+  document.getElementById('set-form').setAttribute('action', '#');
+  document.querySelector('#add-or-update h1').innerText = 'New set';
+  resetForm();
+}
+
+function handleMain() {
+  addOrUpdateElement.style.display = 'none';
+  mainElement.innerHTML = ' ';
+  mainElement.style.display = 'block';
+  mainElement.appendChild(getRenderedSets());
+  isEditing = false;
+  resetToMain();
+}
+
+
 function getEventHandler(newHash) {
   const route = newHash.split('/').slice(1).filter(s => s);
-  const addOrUpdateElement = document.getElementById('add-or-update');
-  const mainElement = document.getElementById('main');
 
-  function handleAdd() {
-    mainElement.style.display = 'none';
-    addOrUpdateElement.style.display = 'block';
-    isEditing = false;
-    document.getElementById('set-form').setAttribute('action', '#');
-    document.querySelector('#add-or-update h1').innerText = 'New set';
-  }
 
   const handleEdit = (() => {
     const invalidId = -1;
     const id = parseInt(route[1]) || invalidId;
     document.querySelector('#add-or-update h1').innerText = 'Editing set';
     return function () {
+      resetForm();
       mainElement.style.display = 'none';
       addOrUpdateElement.style.display = 'block';
       isEditing = true;
@@ -227,14 +290,6 @@ function getEventHandler(newHash) {
     }
   })();
 
-  function handleMain() {
-    addOrUpdateElement.style.display = 'none';
-    mainElement.innerHTML = ' ';
-    mainElement.style.display = 'block';
-    mainElement.appendChild(getRenderedSets());
-    isEditing = false;
-    resetToMain();
-  }
 
   const routes = {
     'add': handleAdd,
