@@ -104,15 +104,15 @@ document.getElementById('set-form').onsubmit = (e) => {
       terms.push({ name: termName, definition: termDefinition });
     }
   }
-  const set = {
-    name: setName,
-    terms: terms
-  };
-  if (id) {
+  const editedValues = { name: setName, terms: terms };
+  const set = getSetById(id);
+  if (set) {
     set.id = id;
+    set.name = editedValues.name;
+    set.terms = editedValues.terms;
     updateSet(set);
   } else {
-    insertSet(set);
+    insertSet(editedValues);
   }
   form.reset();
   resetToMain();
