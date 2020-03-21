@@ -119,6 +119,20 @@
         </span>
     </div>
 </footer>
+    <script>
+        // just setting changing css on "Join us" button
+        // yeah, it's hardcoded)
+        [...document.getElementsByClassName('header_button')].forEach(el => {
+            let currStyle = 2;
+            el.onclick = (e) => {
+            e.preventDefault();
+                [...document.querySelectorAll('link[href^="css/style"]')].forEach(link => {
+                    link.setAttribute('href', `css/style${currStyle}.css`)
+                    currStyle = currStyle === 1 ? 2 : 1;
+            })
+          }
+        })
+    </script>
 </body>
 
 </html>
